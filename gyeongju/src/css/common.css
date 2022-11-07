@@ -1089,6 +1089,14 @@ label {cursor: pointer}
     outline: 0;
 }
 
+.display-show {
+    display: none;
+}
+
+.display-hide {
+    display: block;
+}
+
 .modal-dialog {
     position: relative;
     width: auto;

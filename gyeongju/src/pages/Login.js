@@ -2,6 +2,7 @@ import "./Login.css";
 import React, { useEffect, useState } from "react";
 
 function Login() {
+
   // 이메일, 비번 value를 state에 저장
   const [email, setEmail] = useState("");
   const [pw, setPw] = useState("");
@@ -86,7 +87,6 @@ function Login() {
     // 평상시에는..
     setNotAllow(true);
   }, [emailVaild, pwVaild]);
-
 
   return (
     <div className="login">
