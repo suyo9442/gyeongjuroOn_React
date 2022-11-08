@@ -1,11 +1,11 @@
-import "./Login.css";
+import "./Signin.css";
 import React, { useEffect, useState } from "react";
+import { firebaseAuth , signInWithEmailAndPassword } from "../firebase";
 
-function Login() {
-
+function Signin() {
   // 이메일, 비번 value를 state에 저장
   const [email, setEmail] = useState("");
-  const [pw, setPw] = useState("");
+  const [password, setPassword] = useState("");
 
   // 정규식 조건을 체크할 불리안 state
   const [emailVaild, setEmailVaild] = useState(false);
@@ -14,11 +14,19 @@ function Login() {
   // 로그인버튼 활성화를 체크할 state
   const [notAllow, setNotAllow] = useState(true);
 
-  // 임시 더미데이터
-  const User = {
-    email: "suyo9442@naver.com",
-    pw: "abc1234!!",
+  // 로그인 함수
+  const login = async () => {
+    try {
+      const user = await signInWithEmailAndPassword(firebaseAuth, email, password);
+      console.log(user);
+      alert('로그인 성공!');
+      document.location.href='/';
+    } catch (error) {
+      console.log(error.message);
+    }
   };
+
+
 
   const Modal3 = () => {
     return (
@@ -39,18 +47,22 @@ function Login() {
     );
   };
 
-   const [checkOK, setCheckOK] = useState(false);
 
+  // 임시 더미데이터
+  // const User = {
+  //   email: "suyo9442@naver.com",
+  //   pw: "abc1234!!",
+  // };
   // 존재하는 계정인지 체크할 함수
-  const onClickCheck = () => {
-    if (email === User.email && pw === User.pw) {
-      console.log('로그인 성공!')
-      setCheckOK(true);
-    } else {
-        console.log('로그인 실패!')
-        setCheckOK(false);
-    }
-  };
+  // const onClickCheck = () => {
+  //   if (email === User.email && pw === User.pw) {
+  //     console.log('로그인 성공!')
+  //     setCheckOK(true);
+  //   } else {
+  //       console.log('로그인 실패!')
+  //       setCheckOK(false);
+  //   }
+  // };
 
   const handleEmail = (e) => {
     setEmail(e.target.value);
@@ -67,10 +79,10 @@ function Login() {
     // 이메일형식이 valid 하거나 빈칸이면 => 알림 텍스트가 뜨지 않도록
   };
   const handlePw = (e) => {
-    setPw(e.target.value);
+    setPassword(e.target.value);
     const regex =
       /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+])(?!.*[^a-zA-z0-9$`~!@$!%*#^?&\\(\\)\-_=+]).{8,20}$/;
-    if (regex.test(pw)) {
+    if (regex.test(password)) {
       setPwVaild(true);
     } else {
       setPwVaild(false);
@@ -132,13 +144,13 @@ function Login() {
                       type="text"
                       className="inp line"
                       placeholder="비밀번호를 입력해주세요"
-                      value={pw}
+                      value={password}
                       onChange={handlePw}
                     />
                   </div>
                 </div>
                 <div className="info-text">
-                  {!pwVaild && pw.length > 0 && (
+                  {!pwVaild && password.length > 0 && (
                     <>8자 이상의 영문,숫자,특수문자(!@#$%^&*?) 사용</>
                   )}
                 </div>
@@ -154,7 +166,7 @@ function Login() {
               <button
                 type="button"
                 className="btn blue"
-                onClick={onClickCheck}
+                onClick={login}
                 disabled={notAllow}
               >
                 로그인
@@ -182,10 +194,8 @@ function Login() {
         </div>
       </div> */}
 
-      {checkOK ? <Modal3/> : null}
-
     </div>
   );
 }
 
-export default Login;
+export default Signin;

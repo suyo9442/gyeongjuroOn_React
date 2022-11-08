@@ -1,33 +1,30 @@
-import "./Login.css";
+import "./Signin.css";
 import React, { useEffect, useState } from "react";
-import {firebaseAuth , createUserWithEmailAndPassword, signInWithEmailAndPassword} from "../firebase";
+import {firebaseAuth , createUserWithEmailAndPassword} from "../firebase";
 
-function Login() {
-
-  // 이메일, 비번 value를 state에 저장
+function Signup() {
+  // 이메일, 비번 state
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  // const [authInfo, setAuthInfo] = useState("");
 
-  const register = async () => {
-    try {
-        const user = await createUserWithEmailAndPassword(
-            firebaseAuth,
-            email,
-            password
-        );
-        console.log(user);
-    } catch (error) {
-        console.log(error.message);
-    }
-};
-
+  // 이메일, 비번 value 업데이트
   const handleEmail = (e) => {
     setEmail(e.target.value);
   };
   const handlePw = (e) => {
     setPassword(e.target.value);
   };
+
+  // 회원가입
+  const register = async () => {
+    try {
+      const createdUser = await createUserWithEmailAndPassword(firebaseAuth, email, password);
+      console.log(createdUser)
+    } 
+    catch(error) {
+      console.log(error.message)
+    }
+  }
 
   return (
     <div className="login">
@@ -40,7 +37,7 @@ function Login() {
                 함께 <br />
                 여행을 떠나볼까요?
               </h2>
-              <p>로그인이 필요한 서비스에요.</p>
+              <p>회원가입을 해주세요.</p>
             </div>
             <div className="form">
               <div className="form-row">
@@ -90,7 +87,7 @@ function Login() {
                 className="btn blue"
                 onClick={register}
               >
-                로그인
+                회원가입
               </button>
             </div>
           </div>
@@ -101,4 +98,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default Signup;
