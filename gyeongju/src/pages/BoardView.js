@@ -73,7 +73,6 @@ function BoardView() {
             <div className="voc-view-wrapper">
             <div className="voc-view-row">
                 <label>게시글 번호</label>
-                {/* <div>{itemId2 && data[itemId2] && data[itemId2].content}</div> */}
                 <label>{data[itemId2] && data[itemId2].id}</label>
             </div>
             <div className="voc-view-row">
