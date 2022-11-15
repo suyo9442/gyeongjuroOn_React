@@ -5,7 +5,6 @@ import "./BoardView.css";
 
 
 function GetData(paramsId) {
-
 //   useEffect(() => {
 //     axios
 //       .get("https://codingapple1.github.io/shop/data2.json")
@@ -51,10 +50,9 @@ function BoardView() {
     const { itemId } = useParams();
     const [data, setData] = useState({});
 
-    console.log(itemId)
     const itemId2 = parseInt(itemId) - 3;
     console.log(itemId2)
-//   const item = GetData(itemId2);
+
     useEffect(() => {
         axios
         .get("https://codingapple1.github.io/shop/data2.json")

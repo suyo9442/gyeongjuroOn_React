@@ -56,17 +56,17 @@
   padding: 0 72px;
   margin-bottom: 10px;
 }
-.addBtn > button {
+.btn_blue {
   cursor: pointer;
   background: #61dafb;
   color: #fff;
   padding: 8px 20px;
   margin: 0 auto;
 }
-.detailModal_wrap {
+.modal_wrap {
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.377);
+  background: rgba(0, 0, 0, 0.264);
   position: absolute;
   left: 50%;
   top: 50%;
@@ -75,7 +75,7 @@
   justify-content: center;
   align-items: center;
 }
-.detailModal {
+.modal_inner {
   background: #fff;
   width: 400px;
   height: 400px;
@@ -92,4 +92,27 @@
   color: #fff;
   margin-bottom: 18px;
   font-size: 20px;
+}
+.modal_cont {
+  background: rgb(255, 247, 29);
+  color: #000;
+}
+.add_form {
+  padding: 10px 0;
+  font-size: 18px;
+}
+.add_form input {
+  border: none;
+  border: 1px solid #000;
+}
+.add_form input {
+  border: none;
+  border: 1px solid #000;
+}
+.add_form > p {
+  margin-bottom: 10px;
+}
+.add_form > p > span {
+  display: inline-block;
+  width: 80px;
 }

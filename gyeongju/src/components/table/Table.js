@@ -8,7 +8,7 @@ const Table = props => {
     return (
         <table className="common-table">
             <thead>
-                {/* 머릿말은 Table.js에서 준비! */}
+                {/* 머릿말은 Board.js에서 준비! */}
                 <tr>
                     {
                         headerName.map((item, index)=> {
