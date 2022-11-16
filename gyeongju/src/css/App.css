@@ -97,22 +97,23 @@
   background: rgb(255, 247, 29);
   color: #000;
 }
-.add_form {
+.form {
   padding: 10px 0;
   font-size: 18px;
 }
-.add_form input {
+.form input {
   border: none;
   border: 1px solid #000;
 }
-.add_form input {
+.form input {
   border: none;
   border: 1px solid #000;
 }
-.add_form > p {
+.form > p {
   margin-bottom: 10px;
 }
-.add_form > p > span {
+.form > p > span {
   display: inline-block;
-  width: 80px;
+  white-space: nowrap;
+  width: 110px;
 }
