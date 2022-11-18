@@ -3,9 +3,9 @@ import "../css/App.css";
 import axios from "axios";
 // Table 컴포넌트
 import Table from "../components/table/Table";
-
 // axios 모듈
-// import { boardAxios } from '../api/boardAxios';
+import { selectUser, getUser, insertUser, updateUser, deleteUser } from '../api/board';
+
 
 // 등록 & 수정
 const Addpost = (props) => {
@@ -37,18 +37,11 @@ const Addpost = (props) => {
     e.preventDefault();
 
     if (usrName && email && password) {
-      axios
-        .post("http://192.168.0.111:10010/test/insertuser", {
-          usrNm: usrName,
-          usrId: email,
-          usrPw: password,
-        })
-        .then((res) => {
-          console.log(res);
-        });
-      console.log("제출성공 !");
-    } else {
-      console.log("값이 없습니다 !");
+      insertUser({usrNm: usrName, usrId: email, usrPw: password})
+      .then((res) => {
+        console.log(res);
+      });
+      alert('등록되었습니다');
     }
   };
 
@@ -98,7 +91,6 @@ const Addpost = (props) => {
     </div>
   );
 };
-
 // 상세정보
 const DetailPost = (props) => {
   const [data, setData] = useState({});
@@ -110,12 +102,8 @@ const DetailPost = (props) => {
   // 📍 클릭한 게시글의 id를 받아와 해당 데이터를 요청
   useEffect(() => {
     async function detailPost() {
-      const result = axios.post(
-        "http://192.168.0.111:10010/test/getuser",
-        props.id
-      );
-
-      result.then((res) => {
+      getUser(props.id)
+      .then((res) => {
         setData((prev) => res.data);
         console.log(`${res.data.usrId} 불러오기 성공`);
       });
@@ -145,16 +133,12 @@ const DetailPost = (props) => {
     // 이거 값들어왔는지 체크하고 포스트해야하는지 확인하셈 !⭐️⭐️
 
     if(editName && editYn) {
-      axios.post('http://192.168.0.111:10010/test/updateuser',{
-        "usrNm" : editName,
-        "useYn" : editYn,
-        "usrId" : data.usrId,
-      }).then((res)=>{console.log(res)})
+      updateUser({"usrNm" : editName, "useYn" : editYn, "usrId" : data.usrId})
+      .then((res)=>{console.log(res)})
     } else {
       console.log('값이 없습니다 !')
     }
   }
-
 
   return (
     <div className="detailModal_wrap modal_wrap">
@@ -225,13 +209,33 @@ const DetailPost = (props) => {
   );
 };
 
-
 function Board() {
   const [initData, setInitData] = useState([]);
-  // const [pageIdx, setPageIdx] = useState(1);
   const [formOpen, setFormOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [usrId, setUsrId] = useState("");
+
+  // 📍 렌더링 되자마자 페이지 1의 게시물을 요청해서 뿌려줌
+  useEffect(() => {
+    selectUser({perPage: 10, currentPage: 1})
+    .then((res) => {
+      setInitData((prev) => res.data.userList.data);
+      console.log("페이지 불러오기 성공");
+    })
+    .catch((err) => console.log(err));
+  }, []);
+
+  // 📍 게시글을 누르면 해당 아이디로 삭제 요청을 보냄 
+  const deletePost = async(e, id) => {
+    e.stopPropagation();
+    
+    deleteUser({"usrId": id})
+    .then((res)=>{
+      console.log(res)
+    })
+  }
+
+
 
   // 재사용성해주세요 ⭐️
   function open() {
@@ -249,24 +253,7 @@ function Board() {
     }
   }
 
-  // 📍 렌더링 되자마자 페이지 1의 게시물을 요청해서 뿌려줌
-  useEffect(() => {
-    async function pagePost() {
-      const result = axios.post("http://192.168.0.111:10010/test/selectuser", {
-        perPage: 10,
-        currentPage: 1,
-      });
 
-      result
-        .then((res) => {
-          setInitData((prev) => res.data.userList.data);
-          console.log("1 페이지 불러오기 성공");
-        })
-        .catch((err) => console.log(err));
-    }
-
-    pagePost();
-  }, []);
 
   return (
     <>
@@ -302,7 +289,11 @@ function Board() {
               <td>{item.RGST_DATE}</td>
               <td>준비중</td>
               <td>준비중</td>
-              <td><button children="삭제"/></td>
+              <td><button 
+              className="btn_blue" 
+              children="삭제"
+              onClick={(e)=>deletePost(e, item.USR_ID)}
+              /></td>
             </tr>
           );
         })}

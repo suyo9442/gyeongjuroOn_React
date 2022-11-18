@@ -117,3 +117,8 @@
   white-space: nowrap;
   width: 110px;
 }
+
+
+td {
+  margin-bottom: 10px;
+}
