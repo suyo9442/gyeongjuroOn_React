@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import "../css/App.css";
-import axios from "axios";
 // Table 컴포넌트
 import Table from "../components/table/Table";
 // axios 모듈
@@ -58,8 +57,8 @@ const Addpost = (props) => {
             <input
               type="text"
               name="name"
-              defaultValue={usrName}
               required
+              defaultValue={usrName}
               onChange={onChange}
             />
           </p>
@@ -69,8 +68,8 @@ const Addpost = (props) => {
             <input
               type="text"
               name="email"
-              defaultValue={email}
               required
+              defaultValue={email}
               onChange={onChange}
             />
           </p>
@@ -80,8 +79,8 @@ const Addpost = (props) => {
             <input
               type="password"
               name="password"
-              defaultValue={password}
               required
+              defaultValue={password}
               onChange={onChange}
             />
           </p>

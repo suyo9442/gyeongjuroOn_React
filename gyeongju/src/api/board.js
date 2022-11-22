@@ -1,23 +1,23 @@
-import { boardAxios } from "./boardAxios";
+import { instance } from "./axiosSet";
 
 function selectUser (boardData) {
-    return boardAxios.post('/selectuser', boardData);
+    return instance.post('test/selectuser', boardData);
 }
 
 function getUser (boardData) {
-    return boardAxios.post('/getuser', boardData);
+    return instance.post('test/getuser', boardData);
 }
 
 function insertUser (boardData) {
-    return boardAxios.post('/insertuser', boardData);
+    return instance.post('test/insertuser', boardData);
 }
 
 function updateUser (boardData) {
-    return boardAxios.post('/updateuser', boardData);
+    return instance.post('test/updateuser', boardData);
 }
 
 function deleteUser (boardData) {
-    return boardAxios.post('/deleteuser', boardData);
+    return instance.post('test/deleteuser', boardData);
 }
 
 export { selectUser, getUser, insertUser, updateUser, deleteUser };
