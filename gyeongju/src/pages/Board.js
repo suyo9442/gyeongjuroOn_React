@@ -93,10 +93,8 @@ const Addpost = (props) => {
 // 상세정보
 const DetailPost = (props) => {
   const [data, setData] = useState({});
-  const [openIs, setOpenIs] = useState(false);
   const [editName, setEditName] = useState('');
   const [editYn, setEditYn] = useState('');
-
 
   // 📍 클릭한 게시글의 id를 받아와 해당 데이터를 요청
   useEffect(() => {
@@ -129,7 +127,6 @@ const DetailPost = (props) => {
   // 📍 수정을 누르면 데이터를 넣어 post 요청
   const updateSubmit = (e) => {
     e.preventDefault();
-    // 이거 값들어왔는지 체크하고 포스트해야하는지 확인하셈 !⭐️⭐️
 
     if(editName && editYn) {
       updateUser({"usrNm" : editName, "useYn" : editYn, "usrId" : data.usrId})
@@ -209,7 +206,7 @@ const DetailPost = (props) => {
 };
 
 function Board() {
-  const [initData, setInitData] = useState([]);
+  // const [initData, setInitData] = useState([]);
   const [formOpen, setFormOpen] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const [usrId, setUsrId] = useState("");
@@ -218,22 +215,21 @@ function Board() {
   useEffect(() => {
     selectUser({perPage: 10, currentPage: 1})
     .then((res) => {
-      setInitData((prev) => res.data.userList.data);
-      console.log("페이지 불러오기 성공");
+      // 받아온 데이터는 initData에다 저장
+      // setInitData((prev) => res.data.userList.data);
     })
     .catch((err) => console.log(err));
   }, []);
 
-  // 📍 게시글을 누르면 해당 아이디로 삭제 요청을 보냄 
-  const deletePost = async(e, id) => {
-    e.stopPropagation();
+  // // 📍 게시글을 누르면 해당 아이디로 삭제 요청을 보냄 
+  // const deletePost = async(e, id) => {
+  //   e.stopPropagation();
     
-    deleteUser({"usrId": id})
-    .then((res)=>{
-      console.log(res)
-    })
-  }
-
+  //   deleteUser({"usrId": id})
+  //   .then((res)=>{
+  //     console.log(res);
+  //   })
+  // }
 
 
   // 재사용성해주세요 ⭐️
@@ -251,8 +247,6 @@ function Board() {
       setModalOpen(true);
     }
   }
-
-
 
   return (
     <>
@@ -273,7 +267,7 @@ function Board() {
           " ",
         ]}
       >
-        {initData.map((item, index) => {
+        {/* {initData.map((item, index) => {
           return (
             <tr
               key={index}
@@ -295,7 +289,7 @@ function Board() {
               /></td>
             </tr>
           );
-        })}
+        })} */}
       </Table>
 
       <ul className="pageIdx">

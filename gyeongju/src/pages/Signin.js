@@ -3,12 +3,10 @@ import "../css/App.css";
 import "./Signin.css";
 import loginPost from "../api/auth"
 import { userInfo } from "../api/userInfo";
-import { selectUser, getUser, insertUser, updateUser, deleteUser } from '../api/board';
 
 const LoginForm = (e) => {
   const [usrId, setUsrId] = useState("");
   const [usrPw, setUsrPw] = useState("");
-  const [usrToken, setUsrToken] = useState("");
 
   const onChange = (e) => {
     const {
@@ -39,8 +37,7 @@ const LoginForm = (e) => {
       .then((res)=>{
 
         console.log(res)
-        console.log(res.headers['membership.smartdatacorp.co.kr'])
-        localStorage.setItem('Access_Token', res.data['membership.smartdatacorp.co.kr'])
+        localStorage.setItem('accessToken', res.data['membership.smartdatacorp.co.kr'])
       });
     }
 
@@ -78,7 +75,6 @@ const LoginForm = (e) => {
 }
 
 function Signin() {
-  selectUser({perPage: 10, currentPage: 1}).then((res)=>console.log(res))
 
   return (
     <div className="loginForm">

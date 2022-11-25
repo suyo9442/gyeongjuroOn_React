@@ -1,4 +1,4 @@
-import { instance } from "./axiosSet";
+import { instance } from "./customAxios";
 
 function selectUser (boardData) {
     return instance.post('test/selectuser', boardData);
